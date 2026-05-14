@@ -188,11 +188,11 @@ h1 {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     text-align: center;
     position: relative;
-    padding: 120px 20px;
+    padding: 18vh 20px 0;
 }
 
 .hero-content {
@@ -249,12 +249,12 @@ h1 {
 }
 
 .wrapper-left { 
-    bottom: 20%; 
-    left: clamp(3%, 8vw, 12%);
+    bottom: 28%; 
+    left: clamp(10%, 18vw, 22%);
 }
 .wrapper-right { 
-    bottom: 10%; 
-    right: clamp(3%, 8vw, 12%);
+    bottom: 12%; 
+    right: clamp(10%, 18vw, 22%);
 }
 
 /* Refined Floating Cards */
@@ -372,24 +372,24 @@ h1 {
 @media (max-width: 1680px) {
     h1 { 
         font-size: clamp(3rem, 5vw, 3.8rem); 
-        max-width: 650px;
+        max-width: 750px;
         line-height: 1.1;
     }
-    .hero-content p { max-width: 400px; font-size: 1rem; }
-    .wrapper-left { left: 12%; bottom: 22%; transform: scale(0.85); transform-origin: center; }
-    .wrapper-right { right: 12%; bottom: 16%; transform: scale(0.85); transform-origin: center; }
+    .hero-content p { max-width: 450px; font-size: 1rem; }
+    .wrapper-left { left: 12%; bottom: 26%; transform: scale(0.9); transform-origin: center; }
+    .wrapper-right { right: 12%; bottom: 12%; transform: scale(0.9); transform-origin: center; }
     .floating-card { width: 300px; backdrop-filter: blur(30px); }
 }
 
 @media (max-width: 1440px) {
-    .wrapper-left { left: 8%; bottom: 18%; }
-    .wrapper-right { right: 8%; bottom: 12%; }
+    .wrapper-left { left: 8%; bottom: 24%; transform: scale(0.85); }
+    .wrapper-right { right: 8%; bottom: 10%; transform: scale(0.85); }
 }
 
 @media (max-width: 1200px) {
     h1 { font-size: 3rem; max-width: 550px; }
-    .wrapper-left { left: 3%; bottom: 15%; transform: scale(0.75); transform-origin: center; }
-    .wrapper-right { right: 3%; bottom: 10%; transform: scale(0.75); transform-origin: center; }
+    .wrapper-left { left: 3%; bottom: 20%; transform: scale(0.75); transform-origin: center; }
+    .wrapper-right { right: 3%; bottom: 8%; transform: scale(0.75); transform-origin: center; }
 }
 
 @media (max-width: 1024px) {
