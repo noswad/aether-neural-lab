@@ -60,18 +60,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const interactiveElements = document.querySelectorAll('.btn, .floating-card');
 
         interactiveElements.forEach(el => {
+            let rect;
+            
+            el.addEventListener('mouseenter', () => {
+                rect = el.getBoundingClientRect();
+            });
+
             el.addEventListener('mousemove', function(e) {
-                const pos = el.getBoundingClientRect();
-                const x = e.clientX - pos.left;
-                const y = e.clientY - pos.top;
+                if (!rect) rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
                 
                 // Sheen variables
-                el.style.setProperty('--x', `${(x / pos.width) * 100}%`);
-                el.style.setProperty('--y', `${(y / pos.height) * 100}%`);
+                el.style.setProperty('--x', `${(x / rect.width) * 100}%`);
+                el.style.setProperty('--y', `${(y / rect.height) * 100}%`);
 
                 // Magnetic force calculation
-                const mx = x - pos.width / 2;
-                const my = y - pos.height / 2;
+                const mx = x - rect.width / 2;
+                const my = y - rect.height / 2;
                 const strength = el.classList.contains('btn') ? 0.2 : 0.35;
 
                 anime({

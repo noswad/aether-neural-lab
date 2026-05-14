@@ -130,7 +130,7 @@ nav {
     font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
-    transition: var(--transition-premium);
+    transition: background 0.4s, border-color 0.4s, box-shadow 0.4s, color 0.4s, opacity 0.4s;
     text-decoration: none !important;
     display: inline-flex;
     align-items: center;
@@ -170,7 +170,7 @@ nav {
     font-size: 1.05rem;
     opacity: 0;
     box-shadow: 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.2);
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: background 0.4s, border-color 0.4s, box-shadow 0.4s, color 0.4s, opacity 0.4s;
 }
 
 .btn-cta:hover {
