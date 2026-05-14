@@ -216,6 +216,7 @@ h1 {
     text-align: center;
     position: relative;
     padding: 18vh 20px 0;
+    overflow: hidden;
 }
 
 .hero-content {
