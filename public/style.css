@@ -161,10 +161,10 @@ nav {
 /* Typography Fluid */
 h1 {
     font-family: var(--font-display);
-    font-size: clamp(3rem, 10vw, 6.5rem);
+    font-size: clamp(3rem, 9vw, 6rem);
     font-weight: 600;
-    line-height: 0.85;
-    letter-spacing: -0.05em;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
     margin-bottom: 1.5rem;
     color: #fff;
     opacity: 0;
@@ -248,12 +248,12 @@ h1 {
 }
 
 .wrapper-left { 
-    bottom: 22%; 
-    left: clamp(8%, 15vw, 18%);
+    bottom: 20%; 
+    left: clamp(3%, 8vw, 12%);
 }
 .wrapper-right { 
-    bottom: 12%; 
-    right: clamp(8%, 15vw, 18%);
+    bottom: 10%; 
+    right: clamp(3%, 8vw, 12%);
 }
 
 /* Refined Floating Cards */
@@ -368,14 +368,21 @@ h1 {
    RESPONSIVE BREAKPOINTS
    -------------------------------------------------- */
 
+@media (max-width: 1440px) {
+    h1 { font-size: clamp(3rem, 8vw, 5rem); }
+    .wrapper-left { left: 4%; bottom: 15%; }
+    .wrapper-right { right: 4%; bottom: 8%; }
+    .floating-card { width: 280px; padding: 1.8rem; }
+}
+
 @media (max-width: 1024px) {
     .nav-links {
-        gap: 1.5rem;
-        padding: 0.6rem 2rem;
+        gap: 1.2rem;
+        padding: 0.6rem 1.8rem;
     }
-    .wrapper-left { bottom: 5%; left: 2%; }
-    .wrapper-right { bottom: 3%; right: 2%; }
-    .floating-card { width: 300px; }
+    .wrapper-left { bottom: 8%; left: 3%; }
+    .wrapper-right { bottom: 5%; right: 3%; }
+    .floating-card { width: 260px; }
 }
 
 @media (max-width: 768px) {
