@@ -1,6 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     const isMobile = window.innerWidth <= 768;
 
+    // Prepare h1 for letter-by-letter animation
+    const h1 = document.getElementById('hero-title');
+    if (h1) {
+        h1.innerHTML = h1.innerHTML.replace(/([^>\s])(?![^<]*>)/g, "<span class='letter' style='display:inline-block; opacity:0; transform:translateY(30px)'>$&</span>");
+    }
+
     // 1. Entrance Animation Sequence
     const entranceAnimation = anime.timeline({
         easing: 'easeOutQuart',
@@ -10,10 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
     entranceAnimation
     .add({
         targets: 'h1',
-        translateY: [isMobile ? 30 : 50, 0],
         opacity: [0, 1],
-        delay: 500
-    })
+        duration: 100
+    }, 500)
+    .add({
+        targets: 'h1 .letter',
+        translateY: [30, 0],
+        opacity: [0, 1],
+        easing: 'easeOutExpo',
+        duration: 800,
+        delay: anime.stagger(25)
+    }, 500)
     .add({
         targets: '.hero-subtext',
         translateY: [20, 0],
@@ -108,4 +121,35 @@ document.addEventListener('DOMContentLoaded', () => {
         easing: 'easeInOutSine',
         delay: 500
     });
+
+    // 4. Data Counter & Global Parallax
+    const statValue = document.querySelector('.stat-value');
+    if (statValue) {
+        const countObj = { val: 0 };
+        anime({
+            targets: countObj,
+            val: 99.8,
+            duration: 2500,
+            easing: 'easeOutExpo',
+            delay: 1500,
+            update: function() {
+                statValue.innerHTML = countObj.val.toFixed(1) + '%';
+            }
+        });
+    }
+
+    if (!isMobile) {
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 2;
+            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+            
+            anime({
+                targets: '.sphere-container',
+                translateX: x * -25,
+                translateY: y * -25,
+                duration: 1200,
+                easing: 'easeOutQuart'
+            });
+        });
+    }
 });

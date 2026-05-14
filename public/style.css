@@ -92,10 +92,29 @@ nav {
     letter-spacing: 0.05em;
     text-transform: uppercase;
     transition: var(--transition-premium);
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -6px;
+    left: 50%;
+    background: var(--accent-primary);
+    transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1), transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 .nav-links a:hover {
     color: var(--text-main);
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.4);
 }
 
 .nav-actions {
@@ -151,11 +170,15 @@ nav {
     font-size: 1.05rem;
     opacity: 0;
     box-shadow: 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.2);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .btn-cta:hover {
     border-color: var(--accent-primary);
-    box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 30px rgba(0, 242, 255, 0.2);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6), 
+                0 0 30px rgba(0, 242, 255, 0.3), 
+                inset 0 0 15px rgba(0, 242, 255, 0.4);
+    transform: translateY(-3px) scale(1.02);
 }
 
 /* Typography Fluid */
@@ -312,11 +335,17 @@ h1 {
     line-height: 1;
 }
 
+@keyframes pulseGlow {
+    0%, 100% { text-shadow: 0 0 5px rgba(0, 242, 255, 0.2); opacity: 0.8; }
+    50% { text-shadow: 0 0 15px rgba(0, 242, 255, 0.9), 0 0 30px rgba(0, 242, 255, 0.5); opacity: 1; color: #fff; }
+}
+
 .stat-label {
     font-size: 0.7rem;
     letter-spacing: 0.1em;
     color: var(--accent-primary);
     font-weight: 700;
+    animation: pulseGlow 2.5s infinite ease-in-out;
 }
 
 .card-stats {
@@ -352,6 +381,23 @@ h1 {
     background: var(--accent-gradient);
     width: 96%;
     box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+    animation: dataFlow 2s infinite linear;
+}
+
+@keyframes dataFlow {
+    100% { left: 200%; }
 }
 
 .icon-circle {
