@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquid Brokers | Luxury Trading Experience</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Anime.js for premium motion -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="noise-overlay"></div>
+    <div class="bg-gradient-layer"></div>
+
+    <nav>
+        <div class="logo">Aether Neural</div>
+        <div class="nav-links">
+            <a href="#lab">The Lab</a>
+            <a href="#engine">Neural Engine</a>
+            <a href="#cases">Case Studies</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <a href="#demo" class="btn btn-secondary">Request Demo</a>
+            <a href="#access" class="btn btn-primary">Get Access</a>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <div class="hero-content">
+            <h1 id="hero-title">Architecting<br>Fluid Intelligence</h1>
+            <p class="hero-subtext" id="hero-desc">Transforming complex data into sentient motion. Aether is the world's first generative engine for organic neural interfaces.</p>
+            <a href="#explore" class="btn btn-cta" id="hero-btn">Start Generating</a>
+        </div>
+
+        <!-- Dynamic Sphere Background -->
+        <div class="sphere-container" id="sphere">
+            <div class="sphere-overlay"></div>
+            <video id="sphere-video" autoplay loop muted playsinline poster="public/poster.jpg">
+                <source src="public/liquid2.webm" type="video/webm">
+                <source src="public/liquid2.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Floating Cards with Anim Wrappers -->
+        <div class="card-anim-wrapper wrapper-left">
+            <div class="floating-card card-left" id="card-l">
+                <div class="card-label">
+                    <span class="label-text">Neural Synthesis</span>
+                    <div class="icon-circle">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                    </div>
+                </div>
+                <div class="card-title">Generative<br>Accuracy</div>
+                <div class="card-stats">
+                    <span class="stat-value">99.8%</span>
+                    <span class="stat-label">OPTIMIZED</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-anim-wrapper wrapper-right">
+            <div class="floating-card card-right" id="card-r">
+                <div class="card-label">
+                    <span class="label-text">Engine Performance</span>
+                    <div class="icon-circle">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    </div>
+                </div>
+                <div class="card-title">Inference Time</div>
+                <div class="card-value-hero">12.4<span class="unit">ms</span></div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>
