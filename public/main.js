@@ -4,7 +4,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Prepare h1 for letter-by-letter animation
     const h1 = document.getElementById('hero-title');
     if (h1) {
-        h1.innerHTML = h1.innerHTML.replace(/([^>\s])(?![^<]*>)/g, "<span class='letter' style='display:inline-block; opacity:0; transform:translateY(30px)'>$&</span>");
+        const text = h1.innerHTML;
+        // Split by <br> or spaces, but keep the tags
+        const words = text.split(/(\s+|<br\s*\/?>)/);
+        h1.innerHTML = words.map(word => {
+            if (word.match(/<br\s*\/?>/)) return word;
+            if (word.match(/\s+/)) return word;
+            // Wrap each word in a non-breaking span, then each letter
+            const letters = word.replace(/([^>\s])(?![^<]*>)/g, "<span class='letter' style='display:inline-block; opacity:0; transform:translateY(30px)'>$&</span>");
+            return `<span style="display:inline-block; white-space:nowrap;">${letters}</span>`;
+        }).join('');
     }
 
     // 1. Entrance Animation Sequence
@@ -158,4 +167,25 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // Mobile Menu Logic
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    const navLinksList = document.querySelectorAll('.nav-links a');
+
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+    }
+
+    navLinksList.forEach(link => {
+        link.addEventListener('click', () => {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+    });
 });
