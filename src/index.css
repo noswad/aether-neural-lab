@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --bg-color: #0C0C0C;
+  --accent-primary: #00f2ff;
+  --accent-secondary: #00ffa3;
+  --text-muted: rgba(255, 255, 255, 0.6);
+}
+
+body {
+  @apply bg-black text-white font-sans antialiased overflow-x-hidden;
+  margin: 0;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+}
+
+.scroll-container {
+  height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Outfit', sans-serif;
+}
+
+.hero-heading {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-accent-primary font-bold;
+}
+
+.section {
+  @apply relative min-h-screen flex items-center justify-center;
+}
+
+/* Glassmorphism utility */
+.glass {
+  @apply bg-white/5 backdrop-blur-2xl border border-white/10;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    opacity: 0.1;
+    transform: scale(0.95);
+  }
+
+  50% {
+    opacity: 0.2;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes pulse-fast {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.animate-pulse-fast {
+  animation: pulse-fast 2s ease-in-out infinite;
+}
+
+@keyframes dataFlow {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+@keyframes streamFlow {
+  0% { left: -100%; }
+  100% { left: 150%; }
+}
+
+@theme {
+  --color-accent-primary: #00f2ff;
+  --color-accent-secondary: #00ffa3;
+}

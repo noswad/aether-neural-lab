@@ -1,21 +1,459 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aether Neural Lab | Fluid Intelligence</title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Anime.js for premium motion -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    
+
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Responsive Fixes for 15-inch Laptops and smaller desktops */
+        @media (max-width: 1536px) {
+            h1 {
+                font-size: clamp(2.5rem, 6.5vw, 5.5rem) !important;
+                margin-bottom: 1rem !important;
+            }
+
+            .hero-subtext {
+                font-size: 0.95rem !important;
+                margin-bottom: 2rem !important;
+                max-width: 500px !important;
+            }
+
+            .wrapper-left {
+                left: 5% !important;
+                bottom: 15% !important;
+            }
+
+            .wrapper-right {
+                right: 5% !important;
+                bottom: 4% !important;
+            }
+
+            .floating-card {
+                width: 280px !important;
+                padding: 1.8rem !important;
+                border-radius: 30px !important;
+            }
+
+            .stat-value {
+                font-size: 2.8rem !important;
+            }
+
+            .card-value-hero {
+                font-size: 3.5rem !important;
+            }
+
+            .card-title {
+                font-size: 1.2rem !important;
+            }
+
+            /* Case Study Responsive Adjustments */
+            .case-card-inner {
+                height: auto !important;
+                min-height: 70vh !important;
+                padding: 3rem !important;
+            }
+
+            .case-number {
+                font-size: 6rem !important;
+            }
+
+            .case-bottom-row {
+                align-items: flex-start !important;
+                gap: 2rem !important;
+            }
+
+            .case-description p {
+                font-size: 1rem !important;
+                line-height: 1.5 !important;
+            }
+        }
+
+        /* Height-based fixes for shorter laptop screens */
+        @media (max-height: 850px) {
+            .hero {
+                padding-top: 12vh !important;
+            }
+
+            .wrapper-left {
+                bottom: 10% !important;
+            }
+
+            .wrapper-right {
+                bottom: 2% !important;
+            }
+
+            .case-card-inner {
+                min-height: 80vh !important;
+            }
+        }
+
+        /* Vertical tablet/small laptop overlap fix */
+        @media (max-width: 1200px) {
+
+            .wrapper-left,
+            .wrapper-right {
+                position: relative !important;
+                bottom: auto !important;
+                left: auto !important;
+                right: auto !important;
+                margin: 20px auto !important;
+                display: flex;
+                justify-content: center;
+            }
+
+            .hero {
+                height: auto !important;
+                min-height: 100vh;
+                padding-bottom: 50px;
+            }
+
+            .floating-card {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            /* Stack Case Studies */
+            .case-bottom-row {
+                grid-template-columns: 1fr !important;
+            }
+
+            .case-images-right {
+                display: none;
+            }
+        }
+
+        /* Case Study Image Animation & HUD Effects */
+        .img-wrapper {
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .img-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to bottom, transparent, rgba(215, 226, 234, 0.15), transparent);
+            pointer-events: none;
+            animation: imageScan 6s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        .img-wrapper img {
+            filter: brightness(0.7) grayscale(0.2);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .img-wrapper:hover img {
+            filter: brightness(1) grayscale(0);
+            transform: scale(1.08);
+        }
+
+        @keyframes imageScan {
+            0% { top: -100%; }
+            30% { top: 120%; }
+            100% { top: 120%; }
+        }
+
+        .hud-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hud-ring {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border: 2px dashed rgba(215, 226, 234, 0.3);
+            border-radius: 50%;
+            animation: rotateHUD 20s linear infinite;
+        }
+
+        .hud-ring::before {
+            content: '';
+            position: absolute;
+            inset: -15px;
+            border: 1px solid rgba(215, 226, 234, 0.1);
+            border-radius: 50%;
+            animation: rotateHUD 30s linear infinite reverse;
+        }
+
+        .hud-node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #D7E2EA;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #D7E2EA;
+            animation: pulseNode 2s ease-in-out infinite;
+        }
+
+        .hud-node.n1 { top: 30%; left: 30%; animation-delay: 0s; }
+        .hud-node.n2 { top: 60%; left: 70%; animation-delay: 0.5s; }
+        .hud-node.n3 { top: 20%; left: 80%; animation-delay: 1.2s; }
+
+        .hud-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(215, 226, 234, 0.4), transparent);
+            width: 150px;
+            transform-origin: left center;
+            animation: flowLine 4s infinite linear;
+        }
+
+        .hud-line.l1 { top: 30%; left: 30%; transform: rotate(30deg); }
+        .hud-line.l2 { top: 60%; left: 70%; transform: rotate(150deg); }
+
+        .hud-data-label {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: #D7E2EA;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: rgba(0,0,0,0.5);
+            padding: 4px 8px;
+            border-left: 2px solid #D7E2EA;
+            animation: flickerText 3s infinite;
+        }
+
+        @keyframes rotateHUD { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes pulseNode {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.5); opacity: 1; box-shadow: 0 0 25px #D7E2EA; }
+        }
+        @keyframes flowLine {
+            0% { opacity: 0; width: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; width: 200px; }
+        }
+        @keyframes flickerText {
+            0%, 100% { opacity: 1; }
+            92% { opacity: 1; }
+            93% { opacity: 0.5; }
+            94% { opacity: 1; }
+            95% { opacity: 0.2; }
+            96% { opacity: 1; }
+        }
+
+        /* Interaction Fix: Prevent invisible hero-content box from blocking card hover/clicks */
+        .hero-content { pointer-events: none; }
+        .hero-content > * { pointer-events: auto; }
+        /* --- CONTACT SECTION STYLE ALIGNMENT --- */
+        .contact-section {
+            background: transparent !important; /* Allow background gradient to show */
+            padding: 160px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-form-container {
+            background: rgba(255, 255, 255, 0.02) !important;
+            backdrop-filter: blur(30px) !important;
+            -webkit-backdrop-filter: blur(30px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 40px !important;
+            padding: 5rem !important;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(215, 226, 234, 0.05) !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ambient HUD elements for contact section */
+        .contact-form-container::before {
+            content: 'UPLINK_READY';
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-family: monospace;
+            font-size: 0.6rem;
+            color: rgba(215, 226, 234, 0.3);
+            letter-spacing: 4px;
+        }
+
+        .form-label {
+            font-family: var(--font-display);
+            font-size: 0.7rem !important;
+            letter-spacing: 3px !important;
+            color: rgba(215, 226, 234, 0.5) !important;
+            margin-bottom: 1rem !important;
+        }
+
+        .form-input {
+            background: rgba(255, 255, 255, 0.03) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 15px !important;
+            padding: 1.2rem 1.5rem !important;
+            color: #fff !important;
+            font-size: 1rem !important;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+        }
+
+        .form-input:focus {
+            background: rgba(255, 255, 255, 0.07) !important;
+            border-color: rgba(215, 226, 234, 0.5) !important;
+            box-shadow: 0 0 30px rgba(215, 226, 234, 0.1) !important;
+            outline: none;
+        }
+
+        .btn-transmit {
+            background: #fff !important;
+            color: #000 !important;
+            border: none !important;
+            font-weight: 700 !important;
+            padding: 1.5rem !important;
+            border-radius: 15px !important;
+            letter-spacing: 4px !important;
+            transition: all 0.5s !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-transmit:hover {
+            background: var(--accent-primary) !important;
+            box-shadow: 0 0 50px rgba(215, 226, 234, 0.4) !important;
+            transform: translateY(-5px);
+        }
+
+        /* Match contact number with case number style */
+        .contact-number {
+            font-size: 10rem !important;
+            opacity: 0.15;
+            position: absolute;
+            left: -20px;
+            top: -20px;
+            z-index: -1;
+        }
+        /* --- COMPREHENSIVE RESPONSIVE SYSTEM --- */
+        @media (max-width: 768px) {
+            /* 1. Mobile Navigation & Hamburger */
+            .desktop-only { display: none !important; }
+            .nav-toggle {
+                display: flex !important;
+                flex-direction: column;
+                gap: 6px;
+                cursor: pointer;
+                z-index: 1000;
+            }
+            .nav-toggle span {
+                width: 25px;
+                height: 2px;
+                background: #fff;
+                transition: 0.3s;
+            }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: rgba(12, 12, 12, 0.95);
+                backdrop-filter: blur(20px);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+                z-index: 999;
+            }
+            .nav-links.active {
+                right: 0;
+            }
+            .nav-links a {
+                font-size: 1.5rem;
+                font-weight: 600;
+                letter-spacing: 2px;
+            }
+
+            /* Hamburger Animation */
+            .nav-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .nav-toggle.active span:nth-child(2) { opacity: 0; }
+            .nav-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+            /* 2. Hero Mobile Layout */
+            .hero-content {
+                padding-top: 15vh !important;
+                text-align: center;
+            }
+            h1 { font-size: 2.8rem !important; line-height: 1.1 !important; }
+            .wrapper-left, .wrapper-right {
+                display: none !important; /* Hide floating cards on small phones to save space */
+            }
+
+            /* 3. Bento Grid Mobile */
+            .lab-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+
+            /* 4. Case Studies Mobile */
+            .case-card-sticky {
+                position: relative !important;
+                top: 0 !important;
+                height: auto !important;
+                padding: 40px 0 !important;
+            }
+            .case-card-inner {
+                height: auto !important;
+                min-height: auto !important;
+                padding: 2rem !important;
+                gap: 1.5rem !important;
+            }
+            .case-number { font-size: 4rem !important; }
+            .case-bottom-row {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+            .case-images-right {
+                display: block !important;
+                height: 250px !important;
+            }
+            .hud-overlay { display: none !important; } /* Hide heavy overlays on mobile */
+
+            /* 5. Contact Section Mobile */
+            .contact-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .contact-form-container {
+                padding: 2.5rem !important;
+            }
+            .contact-number { font-size: 6rem !important; top: -10px; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2.2rem !important; }
+            .hero-subtext { font-size: 0.85rem !important; }
+            .section-title { font-size: 1.8rem !important; }
+        }
+    </style>
 </head>
-<body>
+
+<body class="scroll-container">
 
     <div class="noise-overlay"></div>
     <div class="bg-gradient-layer"></div>
@@ -43,10 +481,11 @@
         </div>
     </nav>
 
-    <main class="hero">
+    <main class="hero section">
         <div class="hero-content">
             <h1 id="hero-title">Architecting<br>Fluid Intelligence</h1>
-            <p class="hero-subtext" id="hero-desc">Transforming complex data into sentient motion. Aether is the world's first generative engine for organic neural interfaces.</p>
+            <p class="hero-subtext" id="hero-desc">Transforming complex data into sentient motion. Aether is the world's
+                first generative engine for organic neural interfaces.</p>
             <a href="#explore" class="btn btn-cta" id="hero-btn">Start Generating</a>
         </div>
 
@@ -65,7 +504,11 @@
                 <div class="card-label">
                     <span class="label-text">Neural Synthesis</span>
                     <div class="icon-circle">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                        </svg>
                     </div>
                 </div>
                 <div class="card-title">Generative<br>Accuracy</div>
@@ -81,18 +524,375 @@
                 <div class="card-label">
                     <span class="label-text">Engine Performance</span>
                     <div class="icon-circle">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
                     </div>
                 </div>
                 <div class="card-title">Inference Time</div>
                 <div class="card-value-hero">12.4<span class="unit">ms</span></div>
                 <div class="progress-bar">
-                    <div class="progress-fill"></div>
+                    <div class="progress-fill">
+                        <div class="energy-flow"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <script src="main.js"></script>
+    <section id="lab" class="section lab-section">
+        <div class="container">
+            <div class="lab-grid">
+                <div class="lab-content">
+                    <div class="tag">01 / CONCEPT</div>
+                    <h2 class="section-title">The Genesis of<br>Neural Fluidity</h2>
+                    <p class="section-desc">We don't just build models; we grow digital ecosystems that mimic biological
+                        adaptability. The Lab is where raw data meets sentient motion.</p>
+
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                                    <path d="M2 12h20" />
+                                </svg>
+                            </div>
+                            <div class="feature-text">
+                                <h3>Global Synchronicity</h3>
+                                <p>Latency-free neural distribution across decentralized nodes.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                                </svg>
+                            </div>
+                            <div class="feature-text">
+                                <h3>Adaptive Learning</h3>
+                                <p>Self-evolving architectures that learn from every interaction.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lab-visual">
+                    <div class="main-glass-card">
+                        <div class="glass-header">
+                            <span class="status-dot"></span>
+                            <span class="status-text">LIVE CORE ANALYSIS</span>
+                        </div>
+                        <div class="neural-nodes">
+                            <canvas id="neuralCanvas"></canvas>
+                        </div>
+                        <div class="data-stream">
+                            <div class="stream-line"></div>
+                            <div class="stream-line"></div>
+                            <div class="stream-line"></div>
+                        </div>
+                    </div>
+                    <div class="floating-stat">
+                        <div class="stat-num" id="stat-nodes">14.2K</div>
+                        <div class="stat-name">ACTIVE NODES</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="engine" class="section engine-section">
+        <div class="container">
+            <div class="engine-header">
+                <div class="tag">02 / PERFORMANCE</div>
+                <h2 class="section-title">The Neural Engine</h2>
+                <p class="section-desc">Massive throughput meets surgical precision. Our decentralized architecture
+                    redefines the limits of computational fluidity.</p>
+            </div>
+
+            <div class="bento-grid">
+                <!-- Large Card: Main Core -->
+                <div class="bento-item main-core" data-tilt>
+                    <div class="bento-label">SYSTEM LOAD</div>
+                    <div class="core-display">
+                        <svg class="core-svg" viewBox="0 0 200 200">
+                            <!-- Background Ring -->
+                            <circle class="ring-bg" cx="100" cy="100" r="90"></circle>
+                            <!-- Progress Ring -->
+                            <circle class="ring-progress" cx="100" cy="100" r="90"></circle>
+                            <!-- Fast Scanning Line -->
+                            <circle class="ring-scanner" cx="100" cy="100" r="90"></circle>
+                        </svg>
+                        <div class="core-value" id="load-val">84<span>%</span></div>
+                    </div>
+                    <div class="bento-footer">
+                        <span>CPU UTILIZATION</span>
+                        <span class="status-ok flicker">OPTIMAL</span>
+                    </div>
+                </div>
+
+                <!-- Medium Card: Throughput -->
+                <div class="bento-item throughput" data-tilt>
+                    <div class="bento-label">THROUGHPUT</div>
+                    <div class="stat-large" id="throughput-val">1.2B</div>
+                    <div class="stat-unit">TOKENS / SEC</div>
+                    <div class="mini-chart">
+                        <canvas id="waveCanvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- Small Card: Latency -->
+                <div class="bento-item latency" data-tilt>
+                    <div class="bento-label">LATENCY</div>
+                    <div class="latency-grid">
+                        <div class="loc"><span>SFO</span> <em class="lat-val">12</em>ms</div>
+                        <div class="loc"><span>TPE</span> <em class="lat-val">24</em>ms</div>
+                        <div class="loc"><span>LHR</span> <em class="lat-val">38</em>ms</div>
+                    </div>
+                </div>
+
+                <!-- Small Card: Security -->
+                <div class="bento-item security" data-tilt>
+                    <div class="bento-label">SECURITY</div>
+                    <div class="security-visual">
+                        <div class="shield-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            </svg>
+                            <div class="scan-beam"></div>
+                            <div class="ripple"></div>
+                        </div>
+                    </div>
+                    <div class="security-status">ENCRYPTED</div>
+                </div>
+
+                <!-- Wide Card: Global Infrastructure -->
+                <div class="bento-item infrastructure">
+                    <div class="bento-label">GLOBAL INFRASTRUCTURE</div>
+                    <div class="infra-map">
+                        <div class="map-point p1"></div>
+                        <div class="map-point p2"></div>
+                        <div class="map-point p3"></div>
+                        <div class="map-point p4"></div>
+                        <div class="map-line"></div>
+                    </div>
+                    <div class="infra-footer">
+                        <span>DECENTRALIZED MESH NETWORK</span>
+                        <span>42 ACTIVE CLUSTERS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: CASE STUDIES -->
+    <section id="cases" class="cases-section">
+        <div class="container cases-container">
+            <div class="cases-header">
+                <h2 class="section-title hero-heading">Case Studies</h2>
+            </div>
+
+            <div class="cases-stack-wrapper">
+                <!-- Case 1 -->
+                <div class="case-card-sticky">
+                    <div class="case-card-inner">
+                        <div class="case-top-row">
+                            <div class="case-info-left">
+                                <span class="case-number">01</span>
+                                <div class="case-text-col">
+                                    <span class="case-category">PREDICTIVE LOGISTICS</span>
+                                    <h3 class="case-title">Project Chronos</h3>
+                                </div>
+                            </div>
+                            <a href="#" class="btn-live">
+                                <span class="btn-live-text">LIVE PROJECT</span>
+                                <div class="btn-live-bg"></div>
+                            </a>
+                        </div>
+                        <div class="case-bottom-row">
+                            <div class="case-description">
+                                <p>Implementation of temporal neural modeling to optimize global supply chains. Achieved
+                                    40% reduction in latency through deep-learning forecast engines and real-time data
+                                    ingestion.</p>
+                                <div class="case-meta">
+                                    <div class="meta-item">
+                                        <span class="meta-label">IMPACT</span>
+                                        <span class="meta-value">-42% Latency</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="meta-label">TECH</span>
+                                        <span class="meta-value">Temporal CNN</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="case-images-right">
+                                <div class="img-wrapper">
+                                    <img src="chronos.png" alt="Project Chronos">
+                                    <div class="hud-overlay">
+                                        <div class="hud-ring"></div>
+                                        <div class="hud-node n1"></div>
+                                        <div class="hud-node n2"></div>
+                                        <div class="hud-line l1"></div>
+                                        <div class="hud-data-label">SYNCING...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case 2 -->
+                <div class="case-card-sticky">
+                    <div class="case-card-inner">
+                        <div class="case-top-row">
+                            <div class="case-info-left">
+                                <span class="case-number">02</span>
+                                <div class="case-text-col">
+                                    <span class="case-category">HUMAN INTERFACE</span>
+                                    <h3 class="case-title">Bio-Neural Link</h3>
+                                </div>
+                            </div>
+                            <a href="#" class="btn-live">
+                                <span class="btn-live-text">LIVE PROJECT</span>
+                                <div class="btn-live-bg"></div>
+                            </a>
+                        </div>
+                        <div class="case-bottom-row">
+                            <div class="case-description">
+                                <p>Real-time prosthetic synchronization using low-latency neural signal processing.
+                                    Bridging the gap between biological intent and mechanical execution via sub-5ms
+                                    packet transmission.</p>
+                                <div class="case-meta">
+                                    <div class="meta-item">
+                                        <span class="meta-label">LATENCY</span>
+                                        <span class="meta-value">&lt; 5ms</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="meta-label">ACCURACY</span>
+                                        <span class="meta-value">99.2%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="case-images-right">
+                                <div class="img-wrapper">
+                                    <img src="bio-link.png" alt="Bio-Neural Link">
+                                    <div class="hud-overlay">
+                                        <div class="hud-ring"></div>
+                                        <div class="hud-node n3"></div>
+                                        <div class="hud-node n1"></div>
+                                        <div class="hud-line l2"></div>
+                                        <div class="hud-data-label">ACTIVE LINK</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case 3 -->
+                <div class="case-card-sticky">
+                    <div class="case-card-inner">
+                        <div class="case-top-row">
+                            <div class="case-info-left">
+                                <span class="case-number">03</span>
+                                <div class="case-text-col">
+                                    <span class="case-category">SOCIAL ANALYTICS</span>
+                                    <h3 class="case-title">Aether Mind</h3>
+                                </div>
+                            </div>
+                            <a href="#" class="btn-live">
+                                <span class="btn-live-text">LIVE PROJECT</span>
+                                <div class="btn-live-bg"></div>
+                            </a>
+                        </div>
+                        <div class="case-bottom-row">
+                            <div class="case-description">
+                                <p>Large-scale simulation of cognitive sentiment patterns across digital populations.
+                                    Predictive modeling for high-stakes geopolitical decision making and market
+                                    volatility analysis.</p>
+                                <div class="case-meta">
+                                    <div class="meta-item">
+                                        <span class="meta-label">SCALE</span>
+                                        <span class="meta-value">500M Nodes</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="meta-label">RELIABILITY</span>
+                                        <span class="meta-value">94.8%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="case-images-right">
+                                <div class="img-wrapper">
+                                    <img src="aether-mind.png" alt="Aether Mind">
+                                    <div class="hud-overlay">
+                                        <div class="hud-ring"></div>
+                                        <div class="hud-node n2"></div>
+                                        <div class="hud-node n3"></div>
+                                        <div class="hud-line l1"></div>
+                                        <div class="hud-data-label">SIMULATING</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-left">
+                        <span class="contact-number">04</span>
+                        <div class="contact-header-text">
+                            <span class="subtitle">INITIATE LINK</span>
+                            <h2 class="hero-heading" style="font-size: 3.5rem;">Contact</h2>
+                        </div>
+                    </div>
+
+                    <div class="contact-right">
+                        <div class="contact-form-container">
+                            <form id="contact-form">
+                                <div class="form-group">
+                                    <label class="form-label">Architect Name</label>
+                                    <input type="text" class="form-input" placeholder="NEURAL ARCHITECT" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Digital Uplink (Email)</label>
+                                    <input type="email" class="form-input" placeholder="ARCHITECT@DISTRICT7.IO"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Transmission Data</label>
+                                    <textarea class="form-input" placeholder="DESCRIBE YOUR VISION..."></textarea>
+                                </div>
+                                <button type="submit" class="btn-transmit">Transmit Signal</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-logo">AETHER NEURAL LAB</div>
+                    <div class="social-links">
+                        <a href="#" class="social-link">TWITTER</a>
+                        <a href="#" class="social-link">GITHUB</a>
+                        <a href="#" class="social-link">LINKEDIN</a>
+                    </div>
+                    <div class="copyright">© 2026 AETHER NEURAL. ALL RIGHTS RESERVED.</div>
+                </div>
+            </div>
+        </footer>
+
+        <script src="main.js"></script>
 </body>
+
 </html>
