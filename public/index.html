@@ -428,21 +428,28 @@
             }
             
             .bento-grid {
-                grid-template-columns: 1fr !important;
-                grid-template-rows: auto !important;
+                display: flex !important;
+                flex-direction: column !important;
                 gap: 20px !important;
                 padding: 0 10px !important;
             }
 
             .bento-item {
+                width: 100% !important;
                 height: auto !important;
                 min-height: 200px !important;
                 padding: 2rem !important;
+                grid-column: span 1 !important;
+                grid-row: span 1 !important;
             }
 
             .main-core {
                 grid-column: span 1 !important;
                 grid-row: span 1 !important;
+            }
+            
+            .engine-hud-left, .engine-hud-right {
+                display: none !important;
             }
 
             /* 4. Case Studies Mobile */
@@ -470,12 +477,18 @@
                 flex-direction: column !important;
                 gap: 1.5rem !important;
             }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+
             .case-images-right {
                 display: block !important;
                 height: 200px !important;
                 width: 100% !important;
             }
-            .hud-overlay { display: none !important; } /* Hide heavy overlays on mobile */
+            .hud-overlay, .case-hud-right { display: none !important; } /* Hide heavy overlays on mobile */
 
             /* 5. Contact Section Mobile */
             .contact-grid {
