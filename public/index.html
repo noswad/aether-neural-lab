@@ -469,6 +469,18 @@
                 opacity: 1 !important;
                 filter: none !important;
             }
+            .case-top-row {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 1.5rem !important;
+            }
+            .case-info-left {
+                width: 100% !important;
+            }
+            .btn-live {
+                width: 100% !important;
+                justify-content: center !important;
+            }
             .case-number { font-size: 3.5rem !important; }
             .case-title { font-size: 1.8rem !important; }
             
@@ -478,8 +490,9 @@
                 gap: 1.5rem !important;
             }
             
-            .metrics-grid {
+            .metrics-grid, .case-meta {
                 grid-template-columns: 1fr !important;
+                display: grid !important;
                 gap: 1rem !important;
             }
 
@@ -503,6 +516,34 @@
                 flex-direction: column !important;
                 gap: 10px !important;
                 align-items: flex-start !important;
+            }
+
+            /* 6. Footer & Lab Visual Fixes */
+            .footer-content {
+                flex-direction: column !important;
+                gap: 2.5rem !important;
+                text-align: center !important;
+            }
+            .social-links {
+                justify-content: center !important;
+                gap: 2rem !important;
+            }
+            .floating-stat {
+                position: relative !important;
+                bottom: auto !important;
+                right: auto !important;
+                margin-top: -40px !important;
+                margin-left: 20px !important;
+                width: calc(100% - 40px) !important;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .main-glass-card {
+                height: auto !important;
+                min-height: 300px !important;
+                padding: 2rem !important;
             }
         }
 
