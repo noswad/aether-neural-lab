@@ -1,0 +1,17 @@
+# Aether Neural Lab
+
+> Aether is a pioneer in fluid intelligence, building the world's first generative engine for organic neural interfaces. We bridge biophysical signals with low-latency mechanical execution.
+
+## Core Projects & Capabilities
+
+*   [Lab Overview](https://aether-neural-lab-site.vercel.app/#lab) - Deep learning ecosystems mimicking biological adaptability and neural synchronicity.
+*   [Neural Engine](https://aether-neural-lab-site.vercel.app/#engine) - Computational core with a throughput of 1.2B tokens/sec, sub-5ms edge latency, and decentralized mesh infrastructure across 42 clusters.
+*   [Case Studies](https://aether-neural-lab-site.vercel.app/#cases) - Operational research:
+    *   **Project Chronos:** Supply chain logistics optimization with a 42% latency reduction.
+    *   **Bio-Neural Link:** Real-time prosthetic synchronization under 5ms with 99.2% accuracy.
+    *   **Aether Mind:** Large-scale population sentiment simulations covering 500M nodes.
+*   [Contact Uplink](https://aether-neural-lab-site.vercel.app/#contact) - Connect with neural architects.
+
+## Executive Context & Authority
+*   **Director of Neural Architectures:** Dr. Charles Vance
+*   **Academic Notice:** Aether systems are designed for clinical, industrial, and theoretical research only. Bio-prosthetic links comply with institutional safety and bioethics directives.
